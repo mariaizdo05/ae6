@@ -921,9 +921,7 @@ con el historial de cambios correspondiente.
 
 Repositorio:
 
-```text
-PEGAR_AQUÍ_URL_DEL_REPOSITORIO
-```
+https://github.com/mariaizdo05/ae6
 
 ---
 
