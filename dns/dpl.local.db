@@ -1,0 +1,15 @@
+$TTL 604800
+
+@   IN  SOA ns.dpl.local. admin.dpl.local. (
+        2026111703
+        604800
+        86400
+        2419200
+        604800
+)
+
+@       IN  NS  ns.dpl.local.
+
+ns      IN  A   172.20.0.2
+www     IN  A   172.19.0.2
+app     IN  A   172.19.0.3
