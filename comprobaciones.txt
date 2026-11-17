@@ -1,0 +1,143 @@
+AE6 — COMPROBACIONES REALES
+===========================
+
+1. VALIDACIÓN DE BIND
+---------------------
+
+Comando:
+docker exec dpl-lab named-checkconf
+
+Salida:
+[pegar salida real]
+
+
+Comando:
+docker exec dpl-lab named-checkzone dpl.local /etc/bind/db.dpl.local
+
+Salida:
+[pegar salida real]
+
+
+2. RESOLUCIÓN DNS DESDE dpl-cliente
+-----------------------------------
+
+Comando:
+docker exec dpl-cliente dig @172.20.0.2 www.dpl.local A
+
+Salida:
+[pegar salida real]
+
+
+Comando:
+docker exec dpl-cliente nslookup www.dpl.local
+
+Salida:
+[pegar salida real]
+
+
+Comando:
+docker exec dpl-cliente host -t a www.dpl.local
+
+Salida:
+[pegar salida real]
+
+
+Comando:
+docker exec dpl-cliente ping -c 3 www.dpl.local
+
+Salida:
+[pegar salida real]
+
+
+3. SERVICIO WEB Y APLICACIÓN
+----------------------------
+
+Comando:
+docker exec dpl-cliente curl -I http://www.dpl.local
+
+Salida:
+[pegar salida real]
+
+
+Comando:
+docker exec dpl-cliente curl -s http://app.dpl.local:8000/api/mensaje
+
+Salida:
+[pegar salida real]
+
+
+4. DIRECTORIO LDAP
+------------------
+
+Comando:
+docker exec dpl-lab ldapsearch -x -LLL \
+-b "dc=dpl,dc=local" \
+"(uid=alumno)" dn
+
+Salida:
+[pegar salida real]
+
+
+Comando:
+docker exec dpl-lab slapcat
+
+Salida:
+[pegar la parte relevante donde salgan ou=usuarios, alumno y maria]
+
+
+5. AUTENTICACIÓN LDAP
+---------------------
+
+Comando:
+docker exec dpl-cliente ldapwhoami -x \
+-H ldap://172.20.0.2 \
+-D "uid=alumno,ou=usuarios,dc=dpl,dc=local" \
+-w TU_CONTRASEÑA
+
+Salida:
+dn:uid=alumno,ou=usuarios,dc=dpl,dc=local
+
+
+Comando:
+docker exec dpl-cliente ldapwhoami -x \
+-H ldap://172.20.0.2 \
+-D "uid=alumno,ou=usuarios,dc=dpl,dc=local" \
+-w incorrecta
+
+Salida:
+ldap_bind: Invalid credentials (49)
+
+
+6. LOGIN DE LA APLICACIÓN
+-------------------------
+
+Login correcto:
+
+Comando:
+docker exec dpl-cliente curl -i -X POST \
+-d "usuario=alumno&password=TU_CONTRASEÑA" \
+http://www.dpl.local/api/login
+
+Resultado:
+HTTP/1.1 200 OK
+
+
+Login incorrecto:
+
+Comando:
+docker exec dpl-cliente curl -i -X POST \
+-d "usuario=alumno&password=incorrecta" \
+http://www.dpl.local/api/login
+
+Resultado:
+HTTP/1.1 401 Unauthorized
+
+
+7. SCRIPT AUTOMÁTICO
+--------------------
+
+Comando:
+USER_PASSWORD=TU_CONTRASEÑA ./scripts/comprobar.sh
+
+Salida:
+[pegar salida completa del script]
