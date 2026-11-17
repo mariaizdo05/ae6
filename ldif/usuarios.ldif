@@ -1,0 +1,17 @@
+dn: ou=usuarios,dc=dpl,dc=local
+objectClass: organizationalUnit
+ou: usuarios
+
+dn: uid=alumno,ou=usuarios,dc=dpl,dc=local
+objectClass: inetOrgPerson
+cn: Alumno
+sn: Alumno
+uid: alumno
+userPassword: 12345678
+
+dn: uid=maria,ou=usuarios,dc=dpl,dc=local
+objectClass: inetOrgPerson
+cn: Maria
+sn: Maria
+uid: maria
+userPassword: 12345678
